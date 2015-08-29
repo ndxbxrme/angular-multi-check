@@ -8,6 +8,9 @@
       template: '<div class="multi-check"><ng-transclude></ng-transclude></div>',
       link: function(scope, elem, attrs, ngModel) {
         ngModel.$formatters.unshift(function(val) {
+          if (!val) {
+            val = [];
+          }
           if (!angular.isArray(val)) {
             val = [val + ''];
           }
@@ -35,8 +38,9 @@
       restrict: 'EA',
       transclude: true,
       replace: true,
-      template: '<div class="check-item"><input type="checkbox" ng-model="value" ng-change="change()" ><label><ng-transclude></ng-transclude></label></div>',
+      template: '<div class="check-item"><input type="checkbox" id="{{id}}" ng-model="value" ng-change="change()" ><label for="{{id}}"><ng-transclude></ng-transclude></label></div>',
       link: function(scope, elem, attrs) {
+        scope.id = 'ndxcbi' + attrs.value;
         scope.$watch('model', function(n) {
           if (n) {
             return scope.value = scope.model.indexOf(attrs.value) !== -1 || scope.model.indexOf(parseInt(attrs.value)) !== -1;

@@ -7,6 +7,7 @@ angular.module 'multi-check', []
   template: '<div class="multi-check"><ng-transclude></ng-transclude></div>'
   link: (scope, elem, attrs, ngModel) ->
     ngModel.$formatters.unshift (val) ->
+      if not val then val = []
       if not angular.isArray val
         val = [val + '']
       scope.model = val
@@ -27,8 +28,9 @@ angular.module 'multi-check', []
   restrict: 'EA'
   transclude: true
   replace: true
-  template: '<div class="check-item"><input type="checkbox" ng-model="value" ng-change="change()" ><label><ng-transclude></ng-transclude></label></div>'
+  template: '<div class="check-item"><input type="checkbox" id="{{id}}" ng-model="value" ng-change="change()" ><label for="{{id}}"><ng-transclude></ng-transclude></label></div>'
   link: (scope, elem, attrs) ->
+    scope.id = 'ndxcbi' + attrs.value
     scope.$watch 'model', (n) ->
       if n
         scope.value = scope.model.indexOf(attrs.value) isnt -1 or scope.model.indexOf(parseInt(attrs.value)) isnt -1
