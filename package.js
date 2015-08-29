@@ -1,6 +1,6 @@
 Package.describe({
   name: 'ndxbxrme:angular-multi-check',
-  version: '0.3.2',
+  version: '0.4.0',
   summary: 'an angular multi-checkbox directive',
   git: 'https://github.com/ndxbxrme/angular-multi-check',
   documentation: 'README.md'
