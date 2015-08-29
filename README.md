@@ -29,7 +29,7 @@ your controller code should look something like this
 ```
 check out a demo [here](http://codepen.io/ndxbxrme/pen/wKwYBK)
 ### The CSS is up to you
-because I didn't want to impose any of my bad style choises on you  
+because I didn't want to impose any of my bad styling on you  
 here's an example to get you started
 ```stylus
 .multi-check ng-transclude
