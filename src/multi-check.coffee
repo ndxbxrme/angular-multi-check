@@ -1,18 +1,19 @@
 angular.module 'multi-check', []
-.directive 'multiCheck', ($timeout) ->
+.directive 'multiCheck', ->
   restrict: 'EA'
   require: 'ngModel'
   transclude: true
   replace: true
+  scope: 
+    ngModel: '='
   template: '<div class="multi-check"><ng-transclude></ng-transclude></div>'
   link: (scope, elem, attrs, ngModel) ->
-    scope.$watch attrs.ngModel, (val) ->
+    scope.$watch 'ngModel', (val) ->
       if not val
         val = []
       if not angular.isArray val
         val = [val + '']
-      $timeout ->
-        scope.model = val
+      scope.model = val
       ngModel.$setPristine()
       return
     , true
@@ -34,9 +35,11 @@ angular.module 'multi-check', []
   template: '<div class="check-item"><input type="checkbox" id="{{id}}" ng-model="value" ng-change="change()" ><label for="{{id}}"><ng-transclude></ng-transclude></label></div>'
   link: (scope, elem, attrs) ->
     scope.id = 'ndxcbi' + attrs.value
-    scope.$watch 'model', (n) ->
+    scope.$watch ->
+      scope.$parent.$parent.model
+    , (n) ->
       if n
-        scope.value = scope.model.indexOf(attrs.value) isnt -1 or scope.model.indexOf(parseInt(attrs.value)) isnt -1
+        scope.value = n.indexOf(attrs.value) isnt -1 or n.indexOf(parseInt(attrs.value)) isnt -1
     , true
     scope.change = ->
-      scope.updateModel attrs.value, scope.value
+      scope.$parent.$parent.updateModel attrs.value, scope.value

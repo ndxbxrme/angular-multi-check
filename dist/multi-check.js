@@ -1,22 +1,23 @@
 (function() {
-  angular.module('multi-check', []).directive('multiCheck', function($timeout) {
+  angular.module('multi-check', []).directive('multiCheck', function() {
     return {
       restrict: 'EA',
       require: 'ngModel',
       transclude: true,
       replace: true,
+      scope: {
+        ngModel: '='
+      },
       template: '<div class="multi-check"><ng-transclude></ng-transclude></div>',
       link: function(scope, elem, attrs, ngModel) {
-        scope.$watch(attrs.ngModel, function(val) {
+        scope.$watch('ngModel', function(val) {
           if (!val) {
             val = [];
           }
           if (!angular.isArray(val)) {
             val = [val + ''];
           }
-          $timeout(function() {
-            return scope.model = val;
-          });
+          scope.model = val;
           ngModel.$setPristine();
         }, true);
         return scope.updateModel = function(id, value) {
@@ -42,13 +43,15 @@
       template: '<div class="check-item"><input type="checkbox" id="{{id}}" ng-model="value" ng-change="change()" ><label for="{{id}}"><ng-transclude></ng-transclude></label></div>',
       link: function(scope, elem, attrs) {
         scope.id = 'ndxcbi' + attrs.value;
-        scope.$watch('model', function(n) {
+        scope.$watch(function() {
+          return scope.$parent.$parent.model;
+        }, function(n) {
           if (n) {
-            return scope.value = scope.model.indexOf(attrs.value) !== -1 || scope.model.indexOf(parseInt(attrs.value)) !== -1;
+            return scope.value = n.indexOf(attrs.value) !== -1 || n.indexOf(parseInt(attrs.value)) !== -1;
           }
         }, true);
         return scope.change = function() {
-          return scope.updateModel(attrs.value, scope.value);
+          return scope.$parent.$parent.updateModel(attrs.value, scope.value);
         };
       }
     };

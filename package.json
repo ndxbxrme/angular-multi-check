@@ -1,6 +1,6 @@
 {
   "name": "angular-multi-check",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "An angular multi-checkbox directive",
   "main": "dist/multi-check.js",
   "directories": {
