@@ -10,7 +10,7 @@ or if you are using meteor
 meteor add ndxbxrme:angular-multi-check
 ```
 ### Usage
-add `multi-check` to your angular modules
+add `multi-check` to your angular modules list
 ```coffeescript
 angular.module 'myApp', ['multi-check']
 ```
@@ -31,6 +31,8 @@ your controller code should look something like this
   ]
   $scope.selectedThings = [123, '127']
 ```
+ids can be `strings` or `ints` or a mixture of both (you probably don't want to do that though)  
+and you end up with an array of id `strings`  
 check out a demo [here](http://codepen.io/ndxbxrme/pen/wKwYBK)
 ### The CSS is up to you
 because I didn't want to impose any of my bad styling on you  
