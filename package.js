@@ -8,7 +8,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
-  api.use('angular:angular', 'client');
+  api.use('angular:angular@1.4.4', 'client');
   api.addFiles('dist/multi-check.js', 'client');
 });
 
