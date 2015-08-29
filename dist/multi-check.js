@@ -1,5 +1,5 @@
 (function() {
-  angular.module('multi-check', []).directive('multiCheck', function() {
+  angular.module('multi-check', []).directive('multiCheck', function($timeout) {
     return {
       restrict: 'EA',
       require: 'ngModel',
@@ -7,17 +7,18 @@
       replace: true,
       template: '<div class="multi-check"><ng-transclude></ng-transclude></div>',
       link: function(scope, elem, attrs, ngModel) {
-        ngModel.$formatters.unshift(function(val) {
+        scope.$watch(attrs.ngModel, function(val) {
           if (!val) {
             val = [];
           }
           if (!angular.isArray(val)) {
             val = [val + ''];
           }
-          scope.model = val;
+          $timeout(function() {
+            return scope.model = val;
+          });
           ngModel.$setPristine();
-          return val;
-        });
+        }, true);
         return scope.updateModel = function(id, value) {
           if (!value) {
             if (scope.model.indexOf(id) !== -1) {
@@ -45,7 +46,7 @@
           if (n) {
             return scope.value = scope.model.indexOf(attrs.value) !== -1 || scope.model.indexOf(parseInt(attrs.value)) !== -1;
           }
-        });
+        }, true);
         return scope.change = function() {
           return scope.updateModel(attrs.value, scope.value);
         };
