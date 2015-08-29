@@ -5,6 +5,10 @@ demo [http://codepen.io/ndxbxrme/pen/wKwYBK](http://codepen.io/ndxbxrme/pen/wKwY
 ```bash
 bower install --save angular-multi-check
 ```
+or if you are using meteor
+```bash
+meteor add ndxbxrme:angular-multi-check
+```
 ### Usage
 add `multi-check` to your angular modules
 ```coffeescript
