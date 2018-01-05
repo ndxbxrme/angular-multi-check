@@ -34,7 +34,7 @@ angular.module 'multi-check', []
   replace: true
   template: '<div class="check-item"><input type="checkbox" id="{{id}}" ng-model="value" ng-change="change()" ><label for="{{id}}"><ng-transclude></ng-transclude></label></div>'
   link: (scope, elem, attrs) ->
-    scope.id = 'ndxcbi' + attrs.value
+    scope.id = 'ndxcbi' + attrs.value + Math.floor(Math.random() * 999999)
     scope.$watch ->
       scope.$parent.$parent.model
     , (n) ->
